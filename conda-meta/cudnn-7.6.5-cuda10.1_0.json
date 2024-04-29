@@ -1,0 +1,58 @@
+{
+  "build": "cuda10.1_0",
+  "build_number": 0,
+  "channel": "https://repo.anaconda.com/pkgs/main/win-64",
+  "constrains": [],
+  "depends": [
+    "cudatoolkit >=10.1,<10.2"
+  ],
+  "extracted_package_dir": "C:\\Users\\zidwk\\anaconda3\\pkgs\\cudnn-7.6.5-cuda10.1_0",
+  "files": [
+    "Library/bin/cudnn64_7.dll",
+    "Library/include/cudnn.h",
+    "Library/lib/x64/cudnn.lib",
+    ".nonadmin"
+  ],
+  "fn": "cudnn-7.6.5-cuda10.1_0.conda",
+  "license": "Proprietary",
+  "link": {
+    "source": "C:\\Users\\zidwk\\anaconda3\\pkgs\\cudnn-7.6.5-cuda10.1_0",
+    "type": 1
+  },
+  "md5": "b0a3a3fc701ea74f50c61bc722749a8d",
+  "name": "cudnn",
+  "package_tarball_full_path": "C:\\Users\\zidwk\\anaconda3\\pkgs\\cudnn-7.6.5-cuda10.1_0.conda",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "Library/bin/cudnn64_7.dll",
+        "path_type": "hardlink",
+        "sha256": "498d9bb9d55da0c139a52ff4abe7ae5cd2d49576fe91c3ff1ea1f93730a7d180",
+        "sha256_in_prefix": "498d9bb9d55da0c139a52ff4abe7ae5cd2d49576fe91c3ff1ea1f93730a7d180",
+        "size_in_bytes": 420862976
+      },
+      {
+        "_path": "Library/include/cudnn.h",
+        "path_type": "hardlink",
+        "sha256": "9c6d4c25cd0c858e315df4553dd83f491796b4e8f0096437f5cd38ce930cc4fb",
+        "sha256_in_prefix": "9c6d4c25cd0c858e315df4553dd83f491796b4e8f0096437f5cd38ce930cc4fb",
+        "size_in_bytes": 134857
+      },
+      {
+        "_path": "Library/lib/x64/cudnn.lib",
+        "path_type": "hardlink",
+        "sha256": "4e668ebd9354b927ff6bed24afc3760b20328f4dd726f82628e3a4ec457990f8",
+        "sha256_in_prefix": "4e668ebd9354b927ff6bed24afc3760b20328f4dd726f82628e3a4ec457990f8",
+        "size_in_bytes": 64896
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "cudnn",
+  "sha256": "60be680839cdb43f0bf4942379160932d8c84287c5991b77794f4b7cab2395cd",
+  "size": 187807360,
+  "subdir": "win-64",
+  "timestamp": 1576789550000,
+  "url": "https://repo.anaconda.com/pkgs/main/win-64/cudnn-7.6.5-cuda10.1_0.conda",
+  "version": "7.6.5"
+}
