@@ -563,6 +563,31 @@ class APDataObject:
             if precisions[i] > precisions[i-1]:
                 precisions[i-1] = precisions[i]
 
+        plt.figure()
+        plt.plot(recalls, precisions, marker='.', linewidth=0.5, label='PR Curve')
+        plt.xlabel('Recall')
+        plt.ylabel('Precision')
+        plt.title('Precision-Recall Curve')
+
+        filename = 'precision_recall_curve.png'
+        base, ext = os.path.splitext(filename)
+        num = 5.0
+        new_filename = filename
+
+        while os.path.exists(new_filename):
+            new_filename = f"{base}_{num}{ext}"
+            num += 0.5
+
+        plt.grid(True)
+        plt.legend()
+        plt.savefig(new_filename)  # Save the image
+        plt.show()
+
+
+
+
+
+
         # Compute the integral of precision(recall) d_recall from recall=0->1 using fixed-length riemann summation with 101 bars.
         y_range = [0] * 101 # idx 0 is recall == 0.0 and idx 100 is recall == 1.00
         x_range = np.array([x / 100 for x in range(101)])
@@ -610,6 +635,7 @@ def evalimage(net:Yolact, path:str, save_path:str=None):
         cv2.imwrite(save_path, img_numpy)
 
 def evalimages(net:Yolact, input_folder:str, output_folder:str):
+
     if not os.path.exists(output_folder):
         os.mkdir(output_folder)
 
@@ -868,6 +894,7 @@ def evalvideo(net:Yolact, path:str, out_path:str=None):
     cleanup_and_exit()
 
 def evaluate(net:Yolact, dataset, train_mode=False):
+
     net.detect.use_fast_nms = args.fast_nms
     net.detect.use_cross_class_nms = args.cross_class_nms
     cfg.mask_proto_debug = args.mask_proto_debug
@@ -881,6 +908,7 @@ def evaluate(net:Yolact, dataset, train_mode=False):
             evalimage(net, args.image)
         return
     elif args.images is not None:
+
         inp, out = args.images.split(':')
         evalimages(net, inp, out)
         return
@@ -891,6 +919,7 @@ def evaluate(net:Yolact, dataset, train_mode=False):
         else:
             evalvideo(net, args.video)
         return
+
 
     frame_times = MovingAverage()
     dataset_size = len(dataset) if args.max_images < 0 else min(args.max_images, len(dataset))
@@ -910,7 +939,7 @@ def evaluate(net:Yolact, dataset, train_mode=False):
         timer.disable('Load Data')
 
     dataset_indices = list(range(len(dataset)))
-    
+
     if args.shuffle:
         random.shuffle(dataset_indices)
     elif not args.no_sort:
@@ -954,12 +983,12 @@ def evaluate(net:Yolact, dataset, train_mode=False):
                 prep_benchmark(preds, h, w)
             else:
                 prep_metrics(ap_data, preds, img, gt, gt_masks, h, w, num_crowd, dataset.ids[image_idx], detections)
-            
+
             # First couple of images take longer because we're constructing the graph.
             # Since that's technically initialization, don't include those in the FPS calculations.
             if it > 1:
                 frame_times.add(timer.total_time())
-            
+
             if args.display:
                 if it > 1:
                     print('Avg FPS: %.4f' % (1 / frame_times.get_avg()))
@@ -1024,15 +1053,15 @@ def calc_map(ap_data):
             mAP = sum(aps[i][iou_type]) / len(aps[i][iou_type]) * 100 if len(aps[i][iou_type]) > 0 else 0
             all_maps[iou_type][int(threshold*100)] = mAP
         all_maps[iou_type]['all'] = (sum(all_maps[iou_type].values()) / (len(all_maps[iou_type].values())-1))
-    
+
     print_maps(all_maps)
-    
+
     # Put in a prettier format so we can serialize it to json during training
     all_maps = {k: {j: round(u, 2) for j, u in v.items()} for k, v in all_maps.items()}
     return all_maps
 
 def print_maps(all_maps):
-    # Warning: hacky 
+    # Warning: hacky
     make_row = lambda vals: (' %5s |' * len(vals)) % tuple(vals)
     make_sep = lambda n:  ('-------+' * n)
 
@@ -1101,7 +1130,9 @@ if __name__ == '__main__':
 
         if args.cuda:
             net = net.cuda()
-
         evaluate(net, dataset)
+
+
+
 
 
